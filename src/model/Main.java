@@ -15,7 +15,7 @@ public class Main {
 		vetor.setVetor(0, 1);
 		vetor.setVetor(1, 3);
 		vetor.setVetor(2, 0);
-		vetor.setVetor(3, 1);
+		vetor.setVetor(3, 2);
 		
 		System.out.println("VETOR:");
 		vetor.imprimirVetor();
@@ -30,8 +30,8 @@ public class Main {
 		 * 
 		 * */
 		
-		if(vetor.interceptar() > 1) {
-			System.out.println("O vetor gerado se intercepta! \nNo total de " + vetor.interceptar() + " colisões");
+		if(vetor.getColisoes() > 1) {
+			System.out.println("O vetor gerado se intercepta! \nNo total de " + vetor.getColisoes() + " colisões");
 		}else {
 			System.out.println("O vetor gerado não se intercepta!");
 		}
@@ -44,19 +44,16 @@ public class Main {
 		StartVetor startRandom = new StartVetorRandom();
 		startRandom.inicializa(vetor);
 		System.out.println("\n\nVetor inicializado utilizando a função random:");
-		System.out.println("Colisoes: "+ vetor.interceptar());
 		vetor.imprimirVetor();
 		
 		StartVetor startEscada1 = new StartVetorEscada1();
 		startEscada1.inicializa(vetor);
 		System.out.println("\n\nVetor inicializado utilizando a função escada1:");
-		System.out.println("Colisoes: "+ vetor.interceptar());
 		vetor.imprimirVetor();
 		
 		StartVetor startEscada0 = new StartVetorEscada0();
 		startEscada0.inicializa(vetor);
 		System.out.println("\n\nVetor inicializado utilizando a função escada0:");
-		System.out.println("Colisoes: "+ vetor.interceptar());
 		vetor.imprimirVetor();
 		
 		/*	Teste
@@ -68,7 +65,6 @@ public class Main {
 		System.out.println("Filhos do vetor inicial:");
 		for(Vetor filho : filhosLista){
 			filho.imprimirVetor();
-			System.out.println(filho.getColisoes());
 		}
 		
 		

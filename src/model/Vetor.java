@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class Vetor {
+public class Vetor implements Comparable<Vetor>{
 	
 	private int base;
 	private int[] vetor;
@@ -35,10 +35,6 @@ public class Vetor {
 	public int[] getVetor() {
 		return vetor;
 	}
-	
-	public void setVetor(int[] vetor) {
-		this.vetor = vetor;
-	}
 
 	public int getColisoes() {
 		return colisoes;
@@ -51,17 +47,19 @@ public class Vetor {
 	// Informa coluna e valor para alterar o vetor
 	public void setVetor(int coluna, int valor) {
 		this.vetor[coluna] = valor;
+		this.colisoes = this.interceptar();
 	}
 
 	public void imprimirVetor() {
 		for(int k = 0; k < this.base; k++) {
 			System.out.print(this.vetor[k] + "\t");
 		}
+		System.err.println(this.colisoes);
 		System.out.println("\n\n");
 	}
 	
 	// Verifica se as posições das rainhas se interceptam
-	public int interceptar() {
+	private int interceptar() {
 		int cont = 0;
 		for(int i = 0; i<this.base; i++) {
 			for(int j = 0; j<this.base; j++) {
@@ -72,5 +70,16 @@ public class Vetor {
 			}
 		}
 		return cont;
+	}
+
+	@Override
+	public int compareTo(Vetor outroVetor) {
+		if(outroVetor.getColisoes() < this.colisoes) {
+			return +1;
+		}
+		if(outroVetor.getColisoes() > this.colisoes) {
+			return -1;
+		}
+		return 0;
 	}
 }

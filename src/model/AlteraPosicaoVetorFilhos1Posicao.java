@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AlteraPosicaoVetorFilhos1Posicao implements AlteraPosicaoVetorFilhos{
@@ -25,6 +26,8 @@ public class AlteraPosicaoVetorFilhos1Posicao implements AlteraPosicaoVetorFilho
 				vetor.setVetor(i, temp);
 			}
 		}
+		
+		Collections.sort(vetoresFilhos);
 		
 		return vetoresFilhos;
 	}

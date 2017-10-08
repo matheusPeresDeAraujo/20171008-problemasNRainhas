@@ -5,7 +5,7 @@ public class ResolveVetorCollisionReduction implements ResolveVetor{
 	@Override
 	public Vetor soluciona(Vetor vetor) {
 		
-		if(vetor.interceptar() == 0)
+		if(vetor.getColisoes() == 0)
 			return vetor;
 		
 		
