@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Vetor implements Comparable<Vetor>{
 	
@@ -79,7 +80,7 @@ public class Vetor implements Comparable<Vetor>{
 		}
 		if(outroVetor.getColisoes() > this.colisoes) {
 			return -1;
-		}
+		}	
 		return 0;
 	}
 }

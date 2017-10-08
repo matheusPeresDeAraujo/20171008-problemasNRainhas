@@ -1,16 +1,58 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class ResolveVetorCollisionReduction implements ResolveVetor{
 
+	public static int instancia = 0;
+	
 	@Override
 	public Vetor soluciona(Vetor vetor) {
-		
-		if(vetor.getColisoes() == 0)
+
+		if(vetor.getColisoes() < 1 || instancia > 3000)
 			return vetor;
 		
+		List<Vetor> vetores = new ArrayList<>();
+		vetores.add(vetor);
+		
+		vetor = new Vetor(this.solucionar(vetores).get(0).getVetor());
+		
+		return vetor;
+	}
+	
+	private List<Vetor> solucionar(List<Vetor> vetores){
+		
+		//Gero filhos para o primeiro index.
+		AlteraPosicaoVetorFilhos filhos = new AlteraPosicaoVetorFilhos1Posicao();
+		List<Vetor> filhosLista = filhos.altera(vetores.get(0));
+		vetores.remove(0);
+		
+		if(filhosLista.get(0).getColisoes() < 1 || instancia > 3000) {
+			return filhosLista;
+		}
+		
+		// Junto as duas lista para omitir as repetições
+		Map<int[], Vetor> merge = new HashMap<>();
+		for(Vetor vetor : vetores) {
+			merge.put(vetor.getVetor(), vetor);
+		}
+		for(Vetor filho : filhosLista) {
+			merge.put(filho.getVetor(), filho);
+		}
+		
+		filhosLista.clear();
+		
+		filhosLista.addAll(merge.values());
 		
 		
-		return null;
+		instancia++;
+		System.out.println(instancia);
+		
+		return solucionar(filhosLista);
+		
 	}
 	
 }
