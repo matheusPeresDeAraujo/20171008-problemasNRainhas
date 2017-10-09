@@ -8,50 +8,71 @@ import java.util.Map;
 public class ResolveVetorCollisionReduction implements ResolveVetor{
 
 	public static int instancia = 0;
+	private Map<String, Vetor> tentativas = new HashMap<>();
+	private List<Vetor> folhasAbertas = new ArrayList();
 	
 	@Override
 	public Vetor soluciona(Vetor vetor) {
-
-		if(vetor.getColisoes() < 1 || instancia > 3000)
+				
+		if(vetor.getColisoes() < 1) {
 			return vetor;
+		}
 		
-		List<Vetor> vetores = new ArrayList<>();
-		vetores.add(vetor);
+		folhasAbertas.add(vetor);
 		
-		vetor = new Vetor(this.solucionar(vetores).get(0).getVetor());
+		while(vetor.getColisoes() > 0) {
+			
+			instancia = 0;
+			
+			this.solucionar();
+			vetor = new Vetor(folhasAbertas.get(0).getVetor());
+		}
 		
 		return vetor;
 	}
 	
-	private List<Vetor> solucionar(List<Vetor> vetores){
+	private List<Vetor> solucionar(){
 		
-		//Gero filhos para o primeiro index.
-		AlteraPosicaoVetorFilhos filhos = new AlteraPosicaoVetorFilhos1Posicao();
-		List<Vetor> filhosLista = filhos.altera(vetores.get(0));
-		vetores.remove(0);
-		
-		if(filhosLista.get(0).getColisoes() < 1 || instancia > 3000) {
-			return filhosLista;
+		//É a resposta
+		if(folhasAbertas.get(0).getColisoes() < 1 || instancia > 3000) {
+			return folhasAbertas;
 		}
+		
+		//Gero filhos caso não tenha a resposta.
+		AlteraPosicaoVetorFilhos filhos = new AlteraPosicaoVetorFilhos1Posicao();
+		List<Vetor> filhosLista = filhos.altera(folhasAbertas.get(0));
+		
+		tentativas.put(folhasAbertas.get(0).getSenha(),folhasAbertas.get(0));
+		folhasAbertas.get(0).imprimirVetor();
+		folhasAbertas.remove(0);
 		
 		// Junto as duas lista para omitir as repetições
-		Map<int[], Vetor> merge = new HashMap<>();
-		for(Vetor vetor : vetores) {
-			merge.put(vetor.getVetor(), vetor);
+		Map<String, Vetor> merge = new HashMap<>();
+		for(Vetor vetor : folhasAbertas) {
+			merge.put(vetor.getSenha(), vetor);
 		}
 		for(Vetor filho : filhosLista) {
-			merge.put(filho.getVetor(), filho);
+			merge.put(filho.getSenha(), filho);
 		}
 		
+		//remove do map os que já foram utilizados
+		for(String usados : tentativas.keySet()) {
+			if(merge.containsKey(usados)) {
+				merge.remove(usados);
+			}
+		}
+		
+		folhasAbertas.clear();
 		filhosLista.clear();
 		
-		filhosLista.addAll(merge.values());
+		folhasAbertas.addAll(merge.values());
 		
-		
+		System.out.println("Possibilidades utilizadas: " + tentativas.size());
+		System.out.println("Folhas abertas: " + folhasAbertas.size());
+		System.out.println("Total de possibilidades igual a: " + Math.pow(folhasAbertas.get(0).getBase(), folhasAbertas.get(0).getBase()) + " Verificado: " + ((folhasAbertas.size()+tentativas.size())/Math.pow(folhasAbertas.get(0).getBase(), folhasAbertas.get(0).getBase())) + "\n\n");
 		instancia++;
-		System.out.println(instancia);
 		
-		return solucionar(filhosLista);
+		return solucionar();
 		
 	}
 	

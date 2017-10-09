@@ -59,6 +59,14 @@ public class Vetor implements Comparable<Vetor>{
 		System.out.println("\n\n");
 	}
 	
+	public String getSenha() {
+		String senha = "";
+		for(int i = 0; i < this.base; i ++) {
+			senha = senha + this.getVetor()[i];
+		}
+		return senha;
+	}
+	
 	// Verifica se as posições das rainhas se interceptam
 	private int interceptar() {
 		int cont = 0;

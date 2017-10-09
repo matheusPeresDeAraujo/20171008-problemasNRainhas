@@ -11,7 +11,7 @@ public class Main {
 		 * 
 		 * */
 
-		Vetor vetor = new Vetor(8);
+		Vetor vetor = new Vetor(7);
 //		vetor.setVetor(0, 1);
 //		vetor.setVetor(1, 3);
 //		vetor.setVetor(2, 0);
@@ -50,7 +50,7 @@ public class Main {
 //		startEscada1.inicializa(vetor);
 //		System.out.println("\n\nVetor inicializado utilizando a função escada1:");
 //		vetor.imprimirVetor();
-//		
+		
 //		StartVetor startEscada0 = new StartVetorEscada0();
 //		startEscada0.inicializa(vetor);
 //		System.out.println("\n\nVetor inicializado utilizando a função escada0:");
@@ -75,9 +75,10 @@ public class Main {
 		
 		ResolveVetor resolve = new ResolveVetorCollisionReduction();
 		System.out.println("Solução do problema: ");
+		
 		resolve.soluciona(vetor).imprimirVetor();
 		
-		
+	
 		
 	}
 
