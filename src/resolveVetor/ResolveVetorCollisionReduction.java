@@ -1,9 +1,12 @@
-package model;
+package resolveVetor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import alteraPosicao.AlteraPosicaoVetorFilhos1Posicao;
+import model.Vetor;
 
 public class ResolveVetorCollisionReduction implements ResolveVetor{
 
@@ -13,19 +16,19 @@ public class ResolveVetorCollisionReduction implements ResolveVetor{
 	
 	@Override
 	public Vetor soluciona(Vetor vetor) {
-				
-		if(vetor.getColisoes() < 1) {
-			return vetor;
-		}
-		
+//				
+//		if(vetor.getColisoes() < 1) {
+//			return vetor;
+//		}
+//		
 		folhasAbertas.add(vetor);
 		
 		while(vetor.getColisoes() > 0) {
 			
 			instancia = 0;
-			
 			this.solucionar();
 			vetor = new Vetor(folhasAbertas.get(0).getVetor());
+			
 		}
 		
 		return vetor;
@@ -39,11 +42,23 @@ public class ResolveVetorCollisionReduction implements ResolveVetor{
 		}
 		
 		//Gero filhos caso não tenha a resposta.
-		AlteraPosicaoVetorFilhos filhos = new AlteraPosicaoVetorFilhos1Posicao();
-		List<Vetor> filhosLista = filhos.altera(folhasAbertas.get(0));
+		List<Vetor> filhosLista = AlteraPosicaoVetorFilhos1Posicao.getInstance().altera(folhasAbertas.get(0));
 		
 		tentativas.put(folhasAbertas.get(0).getSenha(),folhasAbertas.get(0));
 		folhasAbertas.get(0).imprimirVetor();
+		
+		Vetor correto = new Vetor(5);
+		correto.setVetor(0, 1);
+		correto.setVetor(1, 3);
+		correto.setVetor(2, 0);
+		correto.setVetor(3, 2);
+		correto.setVetor(4, 4);
+		
+		if(folhasAbertas.get(0).compareTo(correto) == 0 || tentativas.containsValue(correto)) {
+			System.out.println("ALERTTTTTTTTTTTTTTTT");
+			System.out.println("ALERTTTTTTTTTTTTTTTT");
+			System.out.println("ALERTTTTTTTTTTTTTTTT");
+		}
 		folhasAbertas.remove(0);
 		
 		// Junto as duas lista para omitir as repetições

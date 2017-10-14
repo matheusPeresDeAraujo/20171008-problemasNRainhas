@@ -1,10 +1,13 @@
-package model;
+package resolveVetor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import alteraPosicao.AlteraPosicaoVetorFilhos1Posicao;
+import model.Vetor;
 
 public class ResolveVetorCollisionReductionSort implements ResolveVetor{
 
@@ -26,11 +29,11 @@ public class ResolveVetorCollisionReductionSort implements ResolveVetor{
 	
 	private List<Vetor> solucionar(List<Vetor> vetores){
 		
-		//Gero filhos para o primeiro index.
-		AlteraPosicaoVetorFilhos filhos = new AlteraPosicaoVetorFilhos1Posicao();
+		//Gero filhos para o primeiro index.Random k = new Random();
 		Random k = new Random();
 		int p = k.nextInt(vetores.size())/3;
-		List<Vetor> filhosLista = filhos.altera(vetores.get(p));
+		List<Vetor> filhosLista = AlteraPosicaoVetorFilhos1Posicao.getInstance().altera(vetores.get(p));
+		
 		vetores.remove(p);
 		
 		if(filhosLista.get(0).getColisoes() < 1 || instancia > 3000) {

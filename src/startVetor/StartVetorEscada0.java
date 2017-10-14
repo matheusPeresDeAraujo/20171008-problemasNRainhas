@@ -1,4 +1,6 @@
-package model;
+package startVetor;
+
+import model.Vetor;
 
 public class StartVetorEscada0 implements StartVetor{
 

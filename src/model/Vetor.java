@@ -1,5 +1,9 @@
 package model;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -55,8 +59,24 @@ public class Vetor implements Comparable<Vetor>{
 		for(int k = 0; k < this.base; k++) {
 			System.out.print(this.vetor[k] + "\t");
 		}
-		System.err.println(this.colisoes);
+		System.out.println("Colisoes: (" + this.colisoes + ")");
 		System.out.println("\n\n");
+	}
+	
+	public void arquivarVetor() throws IOException {
+		File arquivo = new File("/home/matheus/Área de Trabalho/txt.txt");
+		
+		
+		FileWriter fw = new FileWriter(arquivo, true);
+		BufferedWriter bw = new BufferedWriter(fw);
+		
+		for(int k = 0; k < this.base; k++) {
+			bw.write(this.vetor[k] + "\t");
+		}
+		bw.write("Colisoes: (" + this.colisoes + ")");
+		bw.write("\n\n");
+		
+		bw.close();
 	}
 	
 	public String getSenha() {
@@ -65,6 +85,18 @@ public class Vetor implements Comparable<Vetor>{
 			senha = senha + this.getVetor()[i];
 		}
 		return senha;
+	}
+	
+	public int vetorValido(int coluna) {
+		for(int i = 0; i<= coluna; i++) {
+			for(int j = 0; j<= coluna; j++) {
+				if(i != j) { 
+					if((vetor[i] == vetor[j]) || (vetor[i]+(j-i) == vetor[j]) || (vetor[i]-(j-i) == vetor[j]))
+						return 0;
+				}
+			}
+		}
+		return 1;
 	}
 	
 	// Verifica se as posições das rainhas se interceptam

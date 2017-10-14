@@ -1,6 +1,10 @@
-package model;
+package testes;
 
 import java.util.List;
+
+import model.Vetor;
+import resolveVetor.ResolveVetor;
+import resolveVetor.ResolveVetorProfundidadePlanejada;
 
 public class Main {
 
@@ -11,7 +15,7 @@ public class Main {
 		 * 
 		 * */
 
-		Vetor vetor = new Vetor(7);
+		Vetor vetor = new Vetor(22);
 //		vetor.setVetor(0, 1);
 //		vetor.setVetor(1, 3);
 //		vetor.setVetor(2, 0);
@@ -41,10 +45,10 @@ public class Main {
 //		 * 
 //		 * */
 //		
-		StartVetor startRandom = new StartVetorRandom();
-		startRandom.inicializa(vetor);
-		System.out.println("\n\nVetor inicializado utilizando a função random:");
-		vetor.imprimirVetor();
+//		StartVetor startRandom = new StartVetorRandom();
+//		startRandom.inicializa(vetor);
+//		System.out.println("\n\nVetor inicializado utilizando a função random:");
+//		vetor.imprimirVetor();
 		
 //		StartVetor startEscada1 = new StartVetorEscada1();
 //		startEscada1.inicializa(vetor);
@@ -73,7 +77,7 @@ public class Main {
 		 * 
 		 * */
 		
-		ResolveVetor resolve = new ResolveVetorCollisionReduction();
+		ResolveVetor resolve = new ResolveVetorProfundidadePlanejada();
 		System.out.println("Solução do problema: ");
 		
 		resolve.soluciona(vetor).imprimirVetor();
