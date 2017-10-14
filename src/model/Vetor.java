@@ -59,7 +59,7 @@ public class Vetor implements Comparable<Vetor>{
 		for(int k = 0; k < this.base; k++) {
 			System.out.print(this.vetor[k] + "\t");
 		}
-		System.out.println("Colisoes: (" + this.colisoes + ")");
+		System.out.println("\nColisoes: (" + this.colisoes + ")");
 		System.out.println("\n\n");
 	}
 	
@@ -73,7 +73,7 @@ public class Vetor implements Comparable<Vetor>{
 		for(int k = 0; k < this.base; k++) {
 			bw.write(this.vetor[k] + "\t");
 		}
-		bw.write("Colisoes: (" + this.colisoes + ")");
+		bw.write("\nColisoes: (" + this.colisoes + ")");
 		bw.write("\n\n");
 		
 		bw.close();

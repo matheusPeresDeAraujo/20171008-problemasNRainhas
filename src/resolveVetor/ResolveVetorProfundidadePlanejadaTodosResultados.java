@@ -10,19 +10,27 @@ import java.util.Map;
 import model.Vetor;
 
 public class ResolveVetorProfundidadePlanejadaTodosResultados implements ResolveVetor{
-
-	public static int instancia = 0;
-	public static long iteracao = 0 ;
+	
+	private boolean terminated = false;
+	private static int instancia = 0;
+	private static long iteracao = 0;
 	private int coluna = 0;
 	private int linha = 0;
-	
 	DecimalFormat saidaInteiro = new DecimalFormat("###,###");
-	DecimalFormat saidaPercentual = new DecimalFormat("###.00000000000000000000");
+	DecimalFormat saidaPercentual = new DecimalFormat("0.00");
+	
+	private static ResolveVetorProfundidadePlanejadaTodosResultados instance = new ResolveVetorProfundidadePlanejadaTodosResultados();
+	
+	private ResolveVetorProfundidadePlanejadaTodosResultados() {};
+	
+	public static ResolveVetorProfundidadePlanejadaTodosResultados getInstance() {
+		return instance;
+	}
 	
 	@Override
 	public Vetor soluciona(Vetor vetor) {
 		
-		while(iteracao < Math.pow(vetor.getBase(), vetor.getBase()) && coluna >= -1 && linha >= -1) {
+		while(terminated == false) {
 			
 			instancia = 0;
 			vetor = new Vetor(this.solucionar(vetor).getVetor());
@@ -33,75 +41,73 @@ public class ResolveVetorProfundidadePlanejadaTodosResultados implements Resolve
 	}
 	
 	public Vetor solucionar(Vetor vetor){
+		
 		iteracao++;
 		instancia++;
 		
-		//System.out.println("Possibilidades utilizadas: " + iteracao);
-		//System.out.println("Total de possibilidades igual a: " + saidaInteiro.format(Math.pow(vetor.getBase(), vetor.getBase())) + " Verificado: " + saidaPercentual.format(((iteracao*100)/Math.pow(vetor.getBase(), vetor.getBase()))) + " %\n\n");
-		
-		
-		if(iteracao == Math.pow(vetor.getBase(), vetor.getBase()) || instancia > 3000 || coluna <= -1 || linha <= -1) {
+		//Se a pilha não for estourar e não tenho a resposta.
+		if(instancia > 1000) {
 			return vetor;
-		}
-
-		vetor.setVetor(coluna, linha);
-		
-		
-		// Valido imprimir
-		if(vetor.getColisoes() == 0) {
 			
-			// Arquivar
-			try {
-				vetor.arquivarVetor();
-			} catch (IOException e) {
-				e.printStackTrace();
+		}else { //Proxíma modificação em busca da resposta
+			
+			vetor.setVetor(coluna, linha);
+			System.out.println("Possibilidades utilizadas: " + iteracao);
+			System.out.println("Total de possibilidades igual a: " + saidaInteiro.format(Math.pow(vetor.getBase(), vetor.getBase())) + " Verificado: " + saidaPercentual.format(((iteracao*100)/Math.pow(vetor.getBase(), vetor.getBase()))) + " %\n\n");
+			vetor.imprimirVetor();
+			
+			// Valido arquivar
+			if(vetor.getColisoes() == 0) {
+				try {
+					vetor.arquivarVetor();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			
+			//Verifico se após a modificação o vetor está valido até a coluna
+			if(vetor.vetorValido(coluna) == 1 && coluna < vetor.getBase()-1) {
+				coluna++; //preencho proxima coluna
+				linha = 0;
+				return this.solucionar(vetor);
+				
+			} else {
+				
+				linha ++; // Tento fazer a inserção em outra linha
+				
+				// Se já tentei todas as linhas na coluna preciso mudar a coluna
+				if(linha > vetor.getBase()-1) {
+					this.mudaColuna(vetor);
+					if(terminated == true) {
+						return vetor;
+					}
+				}
+				
+				return this.solucionar(vetor);
+				
+			}
 		}
-
-		vetor.imprimirVetor();
-		
-		//Verifico se até a o coluna esta de boas
-		if(vetor.vetorValido(coluna) == 1 && coluna < vetor.getBase()-1) {
-			coluna++; //preencho proxima coluna
-			linha = 0;
-			return this.solucionar(vetor);
-		}
-		
-		
-		linha ++;
-		
-		
-		// Não ta de boas e chegou na ultima linha
-		if(linha > vetor.getBase()-1 || coluna > vetor.getBase()-1) {
-			this.verificaMaximos(vetor);
-			return this.solucionar(vetor);
-		}
-		
-		return this.solucionar(vetor);
-		
 	}
 	
-	public int verificaMaximos(Vetor vetor) {
+	public int mudaColuna(Vetor vetor) {
 		
-		if(linha > vetor.getBase()-1 || coluna > vetor.getBase()-1) {
+		if(linha > vetor.getBase()-1) {
 			
-			vetor.setVetor(coluna, 0);
+			vetor.setVetor(coluna, 0); // Zero o valor da coluna
 			
 			coluna --;
 			
 			if(coluna == -1) {
-				return 1;
+				terminated = true;
+				return 0;
 			}
 			
 			linha = vetor.getVetor()[coluna];
 			linha ++;
 			
-			return verificaMaximos(vetor);
+			return mudaColuna(vetor);
 		}
 		
 		return 1;
 	}
-	
-	
 }
