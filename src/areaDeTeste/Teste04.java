@@ -11,7 +11,7 @@ public class Teste04 {
 		 * 	Tentar resolver o vetor atráves de busca em profundidade
 		 * 
 		 * */
-		Vetor vetor = new Vetor(20);
+		Vetor vetor = new Vetor(10);
 		System.out.println("Solução do problema: ");
 		
 		ResolveVetorProfundidadePlanejada.getInstance().soluciona(vetor);

@@ -96,11 +96,8 @@ public class ResolveVetorCollisionReduction implements ResolveVetor{
 		// Quando 5.000 	resolve em 68 tentativas
 		// Quando 1.000 	resolve em 100 tentativas
 		// Quando 100 		resolve em  100 tentativas
-		if(folhasAbertas.size() > 8000) {
-			for(int i = 8001; i < folhasAbertas.size(); i++) {
-				folhasAbertas.remove(i);
-			}
-		}
+		
+		folhasAbertas = folhasAbertas.subList(0, folhasAbertas.size()/4);
 		
 		return solucionar();
 	}

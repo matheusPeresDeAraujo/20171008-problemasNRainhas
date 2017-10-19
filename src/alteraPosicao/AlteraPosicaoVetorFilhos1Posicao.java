@@ -38,6 +38,7 @@ public class AlteraPosicaoVetorFilhos1Posicao implements AlteraPosicaoVetorFilho
 		}
 		
 		Collections.sort(vetoresFilhos);
+		vetoresFilhos = vetoresFilhos.subList(0, vetoresFilhos.size()/4); // Retorna os 25% melhores Filhos
 		
 		return vetoresFilhos;
 	}
