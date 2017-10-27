@@ -88,16 +88,7 @@ public class ResolveVetorCollisionReduction implements ResolveVetor{
 		folhasAbertas.addAll(merge.values());
 		Collections.sort(folhasAbertas);
 		
-		//Tiro os execeços
-		// Quando 20.000 - 	resolve em 68 tentativas
-		// Quando 15.000 - 	resolve em 50 tentativas
-		// Quando 10.000 - 	resolve em 50 tentativas
-		// Quando 8.000	-	resolve em 50 tentativas
-		// Quando 5.000 	resolve em 68 tentativas
-		// Quando 1.000 	resolve em 100 tentativas
-		// Quando 100 		resolve em  100 tentativas
-		
-		folhasAbertas = folhasAbertas.subList(0, folhasAbertas.size()/4);
+		folhasAbertas = folhasAbertas.subList(0, folhasAbertas.size()/4 +1);
 		
 		return solucionar();
 	}
