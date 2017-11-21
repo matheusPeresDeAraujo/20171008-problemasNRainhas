@@ -38,8 +38,12 @@ public class AlteraPosicaoVetorFilhos1Posicao implements AlteraPosicaoVetorFilho
 		}
 		
 		Collections.sort(vetoresFilhos);
-		vetoresFilhos = vetoresFilhos.subList(0, vetoresFilhos.size()/4); // Retorna os 25% melhores Filhos
-		
+		vetoresFilhos = vetoresFilhos.subList(0, vetoresFilhos.size()/1); // Retorna os 25% melhores Filhos
+
+		System.out.println("Filhos");
+		for(Vetor v : vetoresFilhos) {
+			v.imprimirVetor();
+		}
 		return vetoresFilhos;
 	}
 

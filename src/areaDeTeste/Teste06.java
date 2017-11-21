@@ -15,8 +15,8 @@ public class Teste06 {
 		 * 	Mostrar resultado atráves do Reduction
 		 * 
 		 * */
-		Vetor vetor = new Vetor(8);
-		vetor = new StartVetorRandom().inicializa(vetor);
+		Vetor vetor = new Vetor(4);
+//		vetor = new StartVetorRandom().inicializa(vetor);
 		System.out.println("Solução do problema: ");
 		
 		Matriz matriz = new Matriz(ResolveVetorCollisionReduction.getInstance().soluciona(vetor));
