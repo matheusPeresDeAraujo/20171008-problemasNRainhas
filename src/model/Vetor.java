@@ -45,8 +45,8 @@ public class Vetor implements Comparable<Vetor>{
 		return colisoes;
 	}
 
-	public void setColisoes(int colisoes) {
-		this.colisoes = colisoes;
+	public void setColisoes() {
+		this.colisoes = this.interceptar();
 	}
 
 	// Informa coluna e valor para alterar o vetor

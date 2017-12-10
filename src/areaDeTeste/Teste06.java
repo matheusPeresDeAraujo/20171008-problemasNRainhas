@@ -15,7 +15,7 @@ public class Teste06 {
 		 * 	Mostrar resultado atráves do Reduction
 		 * 
 		 * */
-		Vetor vetor = new Vetor(4);
+		Vetor vetor = new Vetor(100);
 //		vetor = new StartVetorRandom().inicializa(vetor);
 		System.out.println("Solução do problema: ");
 		

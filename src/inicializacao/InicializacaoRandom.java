@@ -24,7 +24,6 @@ public class InicializacaoRandom implements Inicializacao{
 			
 		}
 		
-		
 		return vetores;
 	}
 

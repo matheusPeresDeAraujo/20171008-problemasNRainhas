@@ -12,10 +12,14 @@ public class Teste07 {
 	public static void main(String[] args) {
 		
 		
+		/*
+		 * 
+		 */
+		
 		// 1 - Definir tipo de inicialização
 		
 		InicializacaoRandom iRandom = new InicializacaoRandom();
-		List<Vetor> vetores = iRandom.inicializa(10, 10);
+		List<Vetor> vetores = iRandom.inicializa(10, 4);
 		
 		for(Vetor vetor : vetores){
 			vetor.imprimirVetor();
@@ -57,6 +61,7 @@ public class Teste07 {
 				result.getVetor()[j] = v2.getVetor()[j];
 			}
 			
+			result.setColisoes();
 			geracao.add(result);
 			
 			for(int j = 0; j < v1.getBase()/2; j++) {
@@ -67,12 +72,13 @@ public class Teste07 {
 				result2.getVetor()[j] = v1.getVetor()[j];
 			}
 			
+			result2.setColisoes();
 			geracao.add(result2);
 		}
 		
 		for(Vetor vetor : geracao){
 			vetor.imprimirVetor();
-		}
+		}  
 		
 	}
 
