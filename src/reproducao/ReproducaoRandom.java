@@ -22,7 +22,7 @@ public class ReproducaoRandom implements Reproducao{
 			// Estabelecimento de força
 			// Quanto maior a força negativa, mais posições serão alteradas
 			int forçaNegativa = (mae.getColisoes() * mae.getBase()) /
-					(mae.getColisoes()+pai.getColisoes());
+					(mae.getColisoes()+pai.getColisoes()+1);
 			
 			Vetor filho = new Vetor(mae.getVetor());
 			

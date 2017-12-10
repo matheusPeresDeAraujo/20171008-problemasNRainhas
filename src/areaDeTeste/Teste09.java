@@ -14,7 +14,7 @@ public class Teste09 {
 		 */
 		
 		InicializacaoRandom iRandom = new InicializacaoRandom();
-		List<Vetor> vetores = iRandom.inicializa(2000, 12);
+		List<Vetor> vetores = iRandom.inicializa(10000, 12);
 		
 		ResolveVetorAlgoritmoGenetico resolve = new ResolveVetorAlgoritmoGenetico();
 		resolve.soluciona(vetores);

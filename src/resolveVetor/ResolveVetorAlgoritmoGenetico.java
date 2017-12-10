@@ -26,7 +26,7 @@ public class ResolveVetorAlgoritmoGenetico{
 			this.vetores = vetores;
 			vetores = this.solucionar();
 			
-		}while(vetores.get(0).getBase() > 0);
+		}while(vetores.get(0).getColisoes() > 0);
 
 		return vetores;
 	}
