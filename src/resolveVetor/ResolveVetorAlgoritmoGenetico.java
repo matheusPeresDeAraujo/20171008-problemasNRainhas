@@ -13,7 +13,7 @@ import reproducao.ReproducaoRandom;
 public class ResolveVetorAlgoritmoGenetico{
 	
 	int cont = 0;
-	long geracoes = 0;
+	int geracoes = 0;
 	List<Vetor> vetores = new ArrayList<>();
 	List<Vetor> geracao = new ArrayList<>();
 	Reproducao reproducao = new ReproducaoRandom();
@@ -39,9 +39,8 @@ public class ResolveVetorAlgoritmoGenetico{
 		
 		vetores = vetores.subList(0, (vetores.size()/2 - vetores.get(0).getBase()));
 		vetores.addAll(doppingTodosGenes.dopping(vetores.get(0).getBase()));
-		System.out.println(vetores.size());
 		
-		geracao = reproducao.reproducao(vetores);
+		geracao = reproducao.reproducao(vetores, geracoes);
 		Collections.sort(geracao);
 
 		geracao.get(0).imprimirVetor();

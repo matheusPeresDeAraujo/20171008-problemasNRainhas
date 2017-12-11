@@ -6,6 +6,6 @@ import model.Vetor;
 
 public interface Reproducao {
 	
-	public List<Vetor> reproducao(List <Vetor> pais);
+	public List<Vetor> reproducao(List <Vetor> pais, int temperatura);
 	
 }

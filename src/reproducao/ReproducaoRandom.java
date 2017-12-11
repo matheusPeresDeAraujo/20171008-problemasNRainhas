@@ -9,7 +9,7 @@ import model.Vetor;
 public class ReproducaoRandom implements Reproducao{
 
 	@Override
-	public List<Vetor> reproducao(List<Vetor> pais) {
+	public List<Vetor> reproducao(List<Vetor> pais, int temperatura) {
 		
 		List<Vetor> filhos = new ArrayList<>();
 		for(int j = 0; j < 2; j++) {
@@ -17,7 +17,7 @@ public class ReproducaoRandom implements Reproducao{
 			
 			Random r = new Random();
 			
-			Vetor pai = pais.get(r.nextInt(pais.size()));
+			Vetor pai = pais.get(r.nextInt(pais.size() - (temperatura%pais.size())));
 			
 			// Estabelecimento de força
 			// Quanto maior a força negativa, mais posições serão alteradas
@@ -35,8 +35,15 @@ public class ReproducaoRandom implements Reproducao{
 					
 				}while(posicoesTrocadas.contains(posicao));
 				posicoesTrocadas.add(posicao);
-				
+
 				filho.getVetor()[posicao] = pai.getVetor()[posicao];
+				
+				if(temperatura > pais.size()) {
+					int lok = temperatura/pais.size();
+					if(lok % 2 == 0) {
+						filho.getVetor()[posicao] = r.nextInt(mae.getBase());
+					}
+				}
 			}
 			filho.setColisoes();
 			filhos.add(filho);

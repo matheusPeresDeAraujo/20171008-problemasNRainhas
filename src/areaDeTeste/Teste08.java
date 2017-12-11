@@ -43,7 +43,7 @@ public class Teste08 {
 				
 				
 				Reproducao reproducao = new ReproducaoRandom();
-				List<Vetor> geracao = reproducao.reproducao(vetores);
+				List<Vetor> geracao = reproducao.reproducao(vetores, 0);
 
 				Collections.sort(geracao);
 //				for(Vetor vetor : geracao){
