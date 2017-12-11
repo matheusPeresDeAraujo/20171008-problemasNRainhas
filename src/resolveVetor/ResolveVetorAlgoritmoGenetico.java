@@ -36,22 +36,25 @@ public class ResolveVetorAlgoritmoGenetico{
 		cont++;
 		geracoes++;
 		System.out.println("Geração: " + geracoes);
-		
-		vetores = vetores.subList(0, (vetores.size()/2 - vetores.get(0).getBase()));
-		vetores.addAll(doppingTodosGenes.dopping(vetores.get(0).getBase()));
-		
-		geracao = reproducao.reproducao(vetores, geracoes);
-		Collections.sort(geracao);
 
-		geracao.get(0).imprimirVetor();
-		if(geracao.get(0).getColisoes() ==  0) {
-			return geracao;
-		} else if(cont > 500){
-			cont = 0;
-			return geracao;
-		} else {
-			vetores = geracao;
-			return solucionar();
+		Collections.sort(vetores);
+		vetores.get(0).imprimirVetor();
+		if(vetores.get(0).getColisoes() ==  0) {
+			return vetores;
+		} else{
+			
+			vetores = vetores.subList(0, (vetores.size()/2 - vetores.get(0).getBase()));
+			vetores.addAll(doppingTodosGenes.dopping(vetores.get(0).getBase()));
+			
+			geracao = reproducao.reproducao(vetores, geracoes);
+			
+			if(cont > 500) {
+				cont = 0;
+				return geracao;
+			} else {
+				vetores = geracao;
+				return solucionar();
+			}
 		}
 	}
 

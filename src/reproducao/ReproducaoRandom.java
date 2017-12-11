@@ -40,7 +40,7 @@ public class ReproducaoRandom implements Reproducao{
 				
 				if(temperatura > pais.size()) {
 					int lok = temperatura/pais.size();
-					if(lok % 2 == 0) {
+					if(lok % 2 == 0 && r.nextInt(3) == 1) {
 						filho.getVetor()[posicao] = r.nextInt(mae.getBase());
 					}
 				}
