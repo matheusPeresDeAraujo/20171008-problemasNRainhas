@@ -3,6 +3,7 @@ package areaDeTeste;
 import java.util.List;
 
 import inicializacao.InicializacaoRandom;
+import model.Matriz;
 import model.Vetor;
 import resolveVetor.ResolveVetorAlgoritmoGenetico;
 
@@ -13,11 +14,8 @@ public class Teste09 {
 		 * Tentiva de resolucao
 		 */
 		
-		InicializacaoRandom iRandom = new InicializacaoRandom();
-		List<Vetor> vetores = iRandom.inicializa(100, 8);
-		
-		ResolveVetorAlgoritmoGenetico resolve = new ResolveVetorAlgoritmoGenetico();
-		resolve.soluciona(vetores);
+		List<Vetor> vetores = new InicializacaoRandom().inicializa(100, 5);
+		new Matriz(new ResolveVetorAlgoritmoGenetico().soluciona(vetores).get(0)).imprimirMatriz();
 	}
 
 }
