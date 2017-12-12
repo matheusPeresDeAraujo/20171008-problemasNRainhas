@@ -16,11 +16,7 @@ public class InicializacaoRandom implements Inicializacao{
 		
 		for(int i = 0; i < populacao; i++) {
 			
-			Vetor vetor = new Vetor(tamanhoVetor);
-			StartVetor startRandom = new StartVetorRandom();
-			startRandom.inicializa(vetor);
-			
-			vetores.add(vetor);
+			vetores.add(new StartVetorRandom().inicializa(new Vetor(tamanhoVetor)));
 			
 		}
 		
