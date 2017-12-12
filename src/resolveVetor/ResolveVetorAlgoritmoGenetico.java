@@ -1,13 +1,12 @@
 package resolveVetor;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import dopping.Dopping;
 import dopping.DoppingTodosGenes;
 import model.Vetor;
-import reproducao.Reproducao;
 import reproducao.ReproducaoRandom;
 
 public class ResolveVetorAlgoritmoGenetico{
@@ -20,7 +19,15 @@ public class ResolveVetorAlgoritmoGenetico{
 	public List<Vetor> soluciona(List<Vetor> vetores) {
 		
 		do {
-
+			Collections.sort(vetores);
+			for(Vetor vetor : vetores) {
+				try {
+					vetor.arquivarVetor();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			this.vetores = vetores;
 			vetores = this.solucionar();
 			
@@ -47,7 +54,7 @@ public class ResolveVetorAlgoritmoGenetico{
 			
 			geracao = new ReproducaoRandom().reproducao(vetores, geracoes);
 			
-			if(cont > 1000) {
+			if(cont > vetores.get(0).getBase()) {
 				cont = 0;
 				return geracao;
 			} else {
