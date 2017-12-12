@@ -51,9 +51,9 @@ public class ReproducaoRandom implements Reproducao{
 	
 	private int changedDad(int temperature, int base, int listSize) {
 		
-		int scope = (temperature % (base*base)) / (base*base);
-				
-		return r.nextInt(listSize - (scope * listSize));
+		double scope = (temperature % (base*base)) / (double)(base*base);
+		
+		return r.nextInt(listSize - (int)(scope * listSize));
 	}
 	
 	private int alteredPositions(Vetor mother, Vetor dad, int base, int temperature) {
@@ -74,6 +74,9 @@ public class ReproducaoRandom implements Reproducao{
 		
 		if(mutation(temperature, base)) {
 			alteredMutation = 1;
+			if(mother.getVetor().equals(dad.getVetor())) {
+				alteredMutation = base/2;
+			}
 		}
 		
 		return alteredMinimum + altered + alteredMutation;
