@@ -8,53 +8,83 @@ import model.Vetor;
 
 public class ReproducaoRandom implements Reproducao{
 
+	Random r = new Random();
+
 	@Override
-	public List<Vetor> reproducao(List<Vetor> pais, int temperatura) {
+	public List<Vetor> reproducao(List<Vetor> parents, int temperature) {
 		
-		List<Vetor> filhos = new ArrayList<>();
+		List<Vetor> children = new ArrayList<>();
+		int base = parents.get(0).getBase();
+		int listSize = parents.size();
+		
 		for(int j = 0; j < 2; j++) {
-		for(Vetor mae : pais) {
-			
-			Random r = new Random();
-			
-			Vetor pai = pais.get(r.nextInt(pais.size() - (temperatura%pais.size())));
-			
-			// Estabelecimento de força
-			// Quanto maior a força negativa, mais posições serão alteradas
-			int forçaNegativa = (mae.getColisoes() / pai.getColisoes()) 
-					/ mae.getBase() + 1;
-			
-			Vetor filho = new Vetor(mae.getVetor());
-			
-			List<Integer> posicoesTrocadas = new ArrayList<>();
-			int posicao;
-			for(int i = 0; i < forçaNegativa; i++) {
-				do {
-					
-					posicao = r.nextInt(mae.getBase());
-					
-				}while(posicoesTrocadas.contains(posicao));
-				posicoesTrocadas.add(posicao);
-
-				filho.getVetor()[posicao] = pai.getVetor()[posicao];
+			for(Vetor mother : parents) {
 				
-				if(temperatura > pais.size()) {
-					int lok = temperatura/pais.size();
-					if(lok % 2 == 0 && r.nextInt(3) == 1) {
-						filho.getVetor()[posicao] = r.nextInt(mae.getBase());
+				Vetor dad = parents.get(changedDad(temperature, base, listSize));
+				Vetor child = new Vetor(mother.getVetor());
+				
+				List<Integer> usedPositions = new ArrayList<>();
+				int alteredPositions = alteredPositions(mother, dad, base, temperature);
+				int position;
+				for(int i = 0; i < alteredPositions; i++) {
+					
+					do {
+						position = r.nextInt(mother.getBase());
+					}while(usedPositions.contains(position));
+					usedPositions.add(position);
+					
+					
+					if(mutation(temperature, base)) {
+						child.getVetor()[position] = r.nextInt(base);
+					}else {
+						child.getVetor()[position] = dad.getVetor()[position];
 					}
+					
 				}
+				child.setColisoes();
+				children.add(child);
+				
 			}
-			filho.setColisoes();
-			filhos.add(filho);
-//			System.out.println("Mae; Pai. Filho /n");
-//			mae.imprimirVetor();
-//			pai.imprimirVetor();
-//			filho.imprimirVetor();
-			
 		}
-		}
-		return filhos;
+		return children;
 	}
-
+	
+	private int changedDad(int temperature, int base, int listSize) {
+		
+		int scope = (temperature % (base*base)) / (base*base);
+				
+		return r.nextInt(listSize - (scope * listSize));
+	}
+	
+	private int alteredPositions(Vetor mother, Vetor dad, int base, int temperature) {
+		/*
+		 * Exemplo: 8x8
+		 * Pior caso: 	mother.colision = 64
+		 * 				dad.colision = 2
+		 * Resultado: 5 alterações em vetor de 8
+		 * 
+		 * Melhor caso:	mother.colision = 2
+		 * 				dad.colision = 64
+		 * Resultado: 1 alteração em vetor de 8
+		 * 
+		 */
+		int alteredMinimum = 1;
+		int altered = (mother.getColisoes() / dad.getColisoes()) / base;
+		int alteredMutation = 0;
+		
+		if(mutation(temperature, base)) {
+			alteredMutation = 1;
+		}
+		
+		return alteredMinimum + altered + alteredMutation;
+	}
+	
+	private boolean mutation(int temperature, int base) {
+		
+		int lok = temperature / (base*base);
+		if(lok % 2 == 0 && r.nextInt(2) == 1 && lok != 0) {
+			return true;
+		}
+		return false;
+	}
 }

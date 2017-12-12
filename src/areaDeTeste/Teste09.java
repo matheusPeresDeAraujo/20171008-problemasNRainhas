@@ -14,7 +14,7 @@ public class Teste09 {
 		 * Tentiva de resolucao
 		 */
 		
-		List<Vetor> vetores = new InicializacaoRandom().inicializa(100, 5);
+		List<Vetor> vetores = new InicializacaoRandom().inicializa(100, 8);
 		new Matriz(new ResolveVetorAlgoritmoGenetico().soluciona(vetores).get(0)).imprimirMatriz();
 	}
 
