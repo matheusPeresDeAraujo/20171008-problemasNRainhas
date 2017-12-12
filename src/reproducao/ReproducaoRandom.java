@@ -35,6 +35,7 @@ public class ReproducaoRandom implements Reproducao{
 					
 					
 					if(mutation(temperature, base)) {
+						System.out.println("MUTATION");
 						child.getVetor()[position] = r.nextInt(base);
 					}else {
 						child.getVetor()[position] = dad.getVetor()[position];
@@ -73,9 +74,10 @@ public class ReproducaoRandom implements Reproducao{
 		int alteredMutation = 0;
 		
 		if(mutation(temperature, base)) {
-			alteredMutation = 1;
+			alteredMutation = base/4;
 			if(mother.getVetor().equals(dad.getVetor())) {
 				alteredMutation = base/2;
+				System.out.println("EXTREME MUTATION");
 			}
 		}
 		
